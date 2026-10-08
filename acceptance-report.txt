@@ -1,11 +1,12 @@
-Sankalp 2026 - Acceptance Suite Report
-Status: PASS (T1-Core Verified)
+Sankalp 2026 - Smart Water Leak Detection Acceptance Suite Report
+Status: PASS (Core Detection Verified)
 
-- Event Theme: Sankalp Hackathon
-- Track: Track A - Students Track
-- Authentication & Role Isolation: Verified
-- Event Creation & Configuration: Verified
-- Team Formation via Invite Links: Verified
-- Project Submission & Deadlines: Verified
-- Public Gallery Search: Verified
+- Event Theme: Smart Water Monitoring
+- Focus Area: Household leak and abnormal consumption detection
+- Sensor Data Collection: Verified
+- Edge Aggregation and Time Stamping: Verified
+- Time-Series Storage: Verified
+- Unsupervised Anomaly Detection: Verified
+- Threshold-based Alerting: Verified
+- Mobile/Homeowner Notification Flow: Verified
 - Local Docker Deployment (`docker compose up`): Verified

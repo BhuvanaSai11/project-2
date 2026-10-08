@@ -1,45 +1,81 @@
 # Data Model Specification
 
-The data model supports the Sankalp hackathon submission, team formation, and judging lifecycle for Track A - Students Track.
+The data model supports household water telemetry, anomaly detection, and user alert workflows for the Smart Water Leak detection system.
 
 ## Core Entities & Schema
 
-### 1. Users
+### 1. Households
 * `id` (UUID, PK)
+* `name` (String)
+* `address` (String, nullable)
+* `created_at` (Timestamp)
+
+### 2. Users
+* `id` (UUID, PK)
+* `household_id` (UUID, FK)
 * `email` (String, Unique)
 * `password_hash` (String)
-* `role` (Enum: `participant`, `judge`, `organizer`, `admin`)
+* `role` (Enum: `owner`, `admin`, `viewer`)
 
-### 2. Events
+### 3. Sensors
 * `id` (UUID, PK)
-* `title` (String)
-* `start_date` (Timestamp)
-* `submission_deadline` (Timestamp)
-* `tracks` (JSON / Relation)
-* `track_name` (String, Example: `Track A - Students Track`)
+* `household_id` (UUID, FK)
+* `sensor_name` (String)
+* `device_type` (String)
+* `calibration_factor` (Decimal)
+* `status` (Enum: `active`, `inactive`, `faulty`)
 
-### 3. Teams
+### 4. Flow Readings
 * `id` (UUID, PK)
-* `event_id` (UUID, FK)
-* `name` (String)
-* `invite_code` (String, Unique)
+* `sensor_id` (UUID, FK)
+* `timestamp` (Timestamp)
+* `flow_rate` (Decimal)
+* `pulse_count` (Integer)
+* `source` (String)
 
-### 4. Submissions
+### 5. Consumption Windows
 * `id` (UUID, PK)
-* `team_id` (UUID, FK)
-* `event_id` (UUID, FK)
-* `title` (String)
-* `description` (Text)
-* `repo_url` (String)
-* `status` (Enum: `draft`, `submitted`)
+* `household_id` (UUID, FK)
+* `window_start` (Timestamp)
+* `window_end` (Timestamp)
+* `total_volume` (Decimal)
+* `avg_flow_rate` (Decimal)
+* `peak_flow_rate` (Decimal)
 
-### 5. Tracks
+### 6. Baseline Profiles
 * `id` (UUID, PK)
-* `event_id` (UUID, FK)
-* `name` (String)
-* `description` (Text)
+* `household_id` (UUID, FK)
+* `time_bucket` (String)
+* `expected_flow_mean` (Decimal)
+* `expected_flow_stddev` (Decimal)
+* `updated_at` (Timestamp)
 
-## Import / Export Paths
-* Database seeds can be automatically injected on startup via initialization scripts.
-* Data export is supported via structured JSON/CSV dumps.
+### 7. Anomaly Events
+* `id` (UUID, PK)
+* `household_id` (UUID, FK)
+* `window_id` (UUID, FK, nullable)
+* `score` (Decimal)
+* `threshold` (Decimal)
+* `status` (Enum: `open`, `investigating`, `resolved`)
+* `created_at` (Timestamp)
 
+### 8. Alerts
+* `id` (UUID, PK)
+* `household_id` (UUID, FK)
+* `anomaly_event_id` (UUID, FK)
+* `severity` (Enum: `low`, `medium`, `high`)
+* `message` (Text)
+* `channel` (Enum: `sms`, `email`, `push`)
+* `sent_at` (Timestamp)
+
+## Relationships
+- One household can have many users.
+- One household can have many sensors.
+- One sensor can produce many flow readings.
+- One household can have many consumption windows and baseline profiles.
+- One anomaly event can trigger one or more alerts.
+
+## Storage Notes
+- Raw flow readings should be stored in a time-series-friendly structure.
+- Aggregated usage windows are ideal for model scoring and dashboard analysis.
+- Alert records should remain immutable once sent for audit and troubleshooting.

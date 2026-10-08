@@ -1,51 +1,54 @@
-# Judging and Scoring Methodology
+# Validation and Evaluation Methodology
 
 ## Overview
 
-The platform uses a structured evaluation process to review hackathon submissions after the submission period closes. The goal is to make judging fair, consistent, and easy to manage for organizers and judges.
+The project uses a structured validation process to confirm that the water monitoring system performs reliably in realistic operating conditions. The goal is to demonstrate that abnormal usage can be identified early, with low false positive noise and timely alerts.
 
-## Judging Principles
+## Evaluation Principles
 
 The system is designed around a few core principles:
 
-- role separation between judges and organizers
-- track-level project assignment
-- scoring based on clear criteria
-- protected evaluation data
-- simple public publication of results
+- reliable sensor data collection
+- realistic household usage simulation
+- threshold-based anomaly detection
+- minimal false alarms during normal routines
+- clear reporting for homeowners and operators
 
-## Scoring Strategy
+## Validation Strategy
 
-Judges evaluate projects using a defined numerical scale. The scoring approach focuses on:
+The system is evaluated using a defined numerical and operational approach. The scoring focus includes:
 
-- functionality and completeness
-- quality of implementation
-- usability and product value
-- adherence to the problem statement
-- overall presentation and execution
+- sensing reliability and data completeness
+- edge aggregation quality
+- anomaly detection accuracy
+- alert timeliness and clarity
+- ease of deployment and maintenance
 
-## Evaluation Flow
+## Validation Flow
 
-1. The submission deadline closes.
-2. Judges are assigned to the relevant track or projects.
-3. Each submission is reviewed using the scoring rubric.
-4. Scores are recorded and normalized where needed.
-5. Results are published to participants and organizers.
+1. Simulate or collect representative household water usage patterns.
+2. Measure raw flow data and verify edge aggregation accuracy.
+3. Compute consumption windows and baseline profiles.
+4. Run anomaly detection against normal usage behavior.
+5. Record score, threshold comparison, and alert generation.
+6. Review false positive and missed detection outcomes.
+7. Tune model parameters and alert sensitivity where needed.
 
-## Role Separation
+## Operational Readiness
 
-Important access boundaries are maintained:
+Important quality checks are maintained:
 
-- Judges can score but cannot change administrative settings.
-- Organizers manage event configuration and result publication.
-- Admins maintain higher-level platform access.
+- sensor calibration is verified before deployment
+- anomaly thresholds are tuned against typical home behavior
+- alert messages clearly state severity and likely cause
+- system behavior is reviewed during low-usage and peak-usage periods
 
-This separation helps keep the judging process transparent and reliable.
+This approach helps maintain confidence in the project and ensures that detections are meaningful rather than noisy.
 
 ## Why This Matters
 
-A consistent judging process helps ensure that projects are evaluated fairly, without bias from unrelated administrative roles. It also makes the outcome easier to defend and communicate.
+A consistent validation process helps ensure the detection system is useful in real homes, not just in theory. It also makes the project easier to defend, improve, and communicate to stakeholders.
 
 ## Summary
 
-The judging model is practical and structured. It supports a clear workflow, reduces operational risk, and helps maintain trust in the evaluation outcome.
+The validation model is practical and structured. It supports a clear workflow, reduces operational risk, and helps maintain trust in the system’s abnormal consumption detection capability.
