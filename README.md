@@ -1,90 +1,96 @@
-# Sankalp Hackathon Platform
+Smart Water Leak & Abnormal Consumption Detection
 
-A simple and reliable platform for organizing hackathon events, managing participant teams, collecting project submissions, and supporting judging and result publication.
+An automated, edge-to-cloud system that learns normal household water usage patterns using unsupervised machine learning and flags abnormal consumption in near real time.
 
-## Overview
+The Problem
+Water waste often stays invisible until utility bills arrive or physical damage occurs.
 
-This project helps organizers run a hackathon end-to-end without relying on complex external systems. It supports:
+* Continuous Waste: Slow, persistent leaks can run unnoticed for hours or days.
 
-- event creation and configuration
-- participant registration
-- team formation through invite links
-- project submission with deadlines
-- track-based project organization
-- judging and scoring
-- public gallery and results publishing
 
-The system is designed for local deployment using Docker and is intended to be easy to run and maintain.
+* Late Discovery: Manual meter checks are infrequent, tedious, and easy to miss.
 
-## Core Features
 
-### For organizers
-- Create and manage hackathon events
-- Configure submission deadlines and tracks
-- Review submission statuses
-- Publish results
-- Manage access for judges and admins
 
-### For participants
-- Register and sign in
-- Join or create a team
-- Submit project information and repository links
-- View public project listings
+System Architecture
+The project utilizes a simple, efficient edge-to-cloud pipeline to transform raw flow measurements into actionable warnings:
 
-### For judges
-- Access assigned tracks or projects
-- Score submissions based on defined criteria
-- Submit evaluations without changing admin settings
+[Flow Sensor] -> [Edge Device] -> [Data Store] -> [Anomaly Model] -> [Homeowner Alert]
+(Measure)       (Aggregate)     (Timestamp)     (Score)           (Notify)
 
-## User Roles
+* Flow Sensor: Measures raw water flow.
 
-The platform separates responsibilities by role:
 
-- Participant
-- Judge
-- Organizer
-- Admin
+* Edge Device: Aggregates telemetry data locally.
 
-This role separation helps maintain access control and keeps evaluation fair and auditable.
 
-## Workflow
+* Data Store: Logs and timestamps consumption records.
 
-1. An organizer creates an event and configures tracks.
-2. Participants register and form teams.
-3. Teams submit their project details before the deadline.
-4. Judges review the submissions in their assigned track.
-5. Scores are recorded and normalized.
-6. Results are published to participants and organizers.
 
-## System Design
+* Anomaly Model: Analyzes windows of data and computes anomaly scores.
 
-The platform follows a modular monolith design with clear responsibilities. It is built to be:
 
-- reliable
-- easy to self-host
-- easy to deploy locally
-- scalable enough for a hackathon use case
+* Homeowner Alert: Sends concise mobile notifications when abnormal usage persists.
 
-## Local Setup
 
-1. Clone the repository.
-2. Open the project folder.
-3. Start the services with Docker Compose:
 
-```bash
-docker compose up
-```
+Unsupervised Machine Learning Approach
+Unlike traditional methods, this system requires no pre-labelled leak examples.
 
-4. Open the application in the browser at the configured local port.
+* Baseline Learning: The model studies recurring usage patterns including time of day, duration, flow rate, and recent historical data to establish a normal cluster.
 
-## Project Files
 
-- `README.md` - project overview
-- `ARCHITECTURE.md` - technical design and decisions
-- `DATA-MODEL.md` - database entities and relationships
-- `JUDGING..md` - judging and scoring process
-- `docker-compose.yml` - local container setup
+* Anomaly Scoring: Each new consumption window is assigned an anomaly score. If the score exceeds a predefined threshold, an investigation is triggered.
 
-## Notes
 
-This project is designed for a hackathon environment and focuses on a clear, structured user flow, role isolation, and a straightforward deployment model.
+* Persistent Monitoring Example: Normal household demand typically drops near zero overnight (00:00 to 04:00). A continuous baseline anomaly (such as an 18 L/h flow rate during sleeping hours) creates a clear, persistent anomaly that gets immediately flagged.
+
+
+
+Team Division of Labor
+
+Teammate 1: Machine Learning & Data Intelligence
+
+* Model Design & Training: Develops the unsupervised anomaly detection model (e.g., Isolation Forests, One-Class SVMs, or Autoencoders) to profile normal consumption clusters.
+
+
+* Feature Engineering: Extracts and structures features from raw data, incorporating variables like time of day, usage duration, rolling flow rates, and historical baselines.
+
+
+* Threshold Tuning & Evaluation: Optimizes anomaly scoring thresholds to minimize false positives caused by unusual routines or guests while ensuring real leaks are caught.
+
+
+
+Teammate 2: Hardware, Edge & Backend Pipeline
+
+* Hardware & Edge Integration: Configures the flow sensor and programs the edge device to accurately measure and aggregate water pulse/flow data.
+
+
+* Data Pipeline & Storage: Sets up the backend data store to securely timestamp and log incoming time-series telemetry.
+
+
+* Alerts & Notifications: Builds the real-time notification system to deliver mobile alerts featuring timestamp, severity, and suggested checks.
+
+
+
+Benefits & Limitations
+
+* Key Benefits: Saves water, lowers utility bills, moves discovery from monthly bills to timely alerts, and adapts locally to each home's unique rhythm.
+
+
+* Engineering Realities: Must account for sensor noise/drift, potential false positives from irrigation or guests, cold-start history requirements, and data privacy.
+
+
+
+Future Scope
+
+* Automated valve shut-off mechanisms.
+
+
+* Room-level sub-metering and sensing.
+
+
+* Weather-aware consumption models.
+
+
+* Community-wide water insights.
