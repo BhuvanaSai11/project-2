@@ -1,6 +1,8 @@
-Dogfood 2026 - Acceptance Suite Report
+Sankalp 2026 - Acceptance Suite Report
 Status: PASS (T1-Core Verified)
 
+- Event Theme: Sankalp Hackathon
+- Track: Track A - Students Track
 - Authentication & Role Isolation: Verified
 - Event Creation & Configuration: Verified
 - Team Formation via Invite Links: Verified
