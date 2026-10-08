@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Water Leak & Abnormal Consumption Detection</title>
+    <style>
+        :root {
+            --primary-blue: #0284c7;
+            --dark-blue: #0369a1;
+            --light-blue: #f0f9ff;
+            --accent-blue: #38bdf8;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --bg-white: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-blue);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2.5rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            color: var(--bg-white);
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(2, 132, 199, 0.15);
+        }
+
+        header h1 {
+            font-size: 2.4rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        header p {
+            font-size: 1.15rem;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+
+        .card {
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 2.25rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            font-size: 1.35rem;
+            color: var(--dark-blue);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--light-blue);
+            font-weight: 600;
+        }
+
+        .pipeline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1.25rem;
+        }
+
+        .pipeline-step {
+            background: var(--light-blue);
+            padding: 1.25rem 1rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .pipeline-step:hover {
+            transform: translateY(-2px);
+        }
+
+        .pipeline-step h3 {
+            font-size: 0.95rem;
+            color: var(--dark-blue);
+            margin-bottom: 0.35rem;
+            font-weight: 600;
+        }
+
+        .pipeline-step p {
+            font-size: 0.825rem;
+            color: var(--text-muted);
+        }
+
+        .status-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--light-blue);
+            padding: 1.25rem 1.75rem;
+            border-radius: 12px;
+            margin-top: 1.25rem;
+            border-left: 5px solid var(--primary-blue);
+            border-top: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .status-badge {
+            background: #10b981;
+            color: white;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.025em;
+        }
+
+        ul {
+            padding-left: 1.25rem;
+            color: var(--text-muted);
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+        }
+
+        li strong {
+            color: var(--text-main);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Smart Water Leak Detection</h1>
+            <p>Unsupervised Machine Learning for Abnormal Consumption Tracking</p>
+        </header>
+
+        <div class="card">
+            <h2>System Status & Baseline</h2>
+            <p>Monitoring real-time household flow rates using unsupervised anomaly scoring.</p>
+            <div class="status-box">
+                <div>
+                    <strong>Current Flow Rate:</strong> 0.2 L/h <br>
+                    <small style="color: var(--text-muted);">Normal overnight baseline pattern active</small>
+                </div>
+                <div class="status-badge">System Normal</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Edge-to-Cloud Pipeline</h2>
+            <p>From raw metrics to instantaneous homeowner notices.</p>
+            <div class="pipeline-grid">
+                <div class="pipeline-step">
+                    <h3>Flow Sensor</h3>
+                    <p>Measure raw data</p>
+                </div>
+                <div class="pipeline-step">
+                    <h3>Edge Device</h3>
+                    <p>Aggregate flow</p>
+                </div>
+                <div class="pipeline-step">
+                    <h3>Data Store</h3>
+                    <p>Timestamp logs</p>
+                </div>
+                <div class="pipeline-step">
+                    <h3>Anomaly Model</h3>
+                    <p>Score window</p>
+                </div>
+                <div class="pipeline-step">
+                    <h3>Alerts</h3>
+                    <p>Notify user</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Project Highlights</h2>
+            <ul>
+                <li><strong>No Labelled Data Needed:</strong> The unsupervised model builds baseline clusters automatically from regular habits.</li>
+                <li><strong>Early Detection:</strong> Spots continuous background leaks (like an 18 L/h overnight trickle) before utility bills spike.</li>
+                <li><strong>Actionable Alerts:</strong> Sends precise mobile updates indicating timestamp, severity, and suggested checks.</li>
+            </ul>
+        </div>
+
+        <footer>
+            <p>Smart Water Engineering Project &bull; Edge-to-Cloud Intelligence</p>
+        </footer>
+    </div>
+
+</body>
+</html>
